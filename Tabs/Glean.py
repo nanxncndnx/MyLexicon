@@ -1,8 +1,9 @@
 import streamlit as st
 from .chat_styles import CHAT_STYLES
 
+from DataBase.setup import *
+
 def create_glean_page():
-    """Create a chat interface page"""
     
     # Initialize chat history
     if "messages" not in st.session_state:
@@ -29,6 +30,10 @@ def create_glean_page():
     # Chat input
     if prompt := st.chat_input("Type a word here..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        response = f"{prompt}"
-        st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".add"):
+            promptValue = prompt.replace(".add", "").strip().strip('"')
+            promptMeaning = GrabingTheMeaning(promptValue)
+            response = f"{promptMeaning}"
+            st.session_state.messages.append({"role": "assistant", "content": response})
         st.rerun()
