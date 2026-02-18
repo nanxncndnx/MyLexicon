@@ -208,3 +208,6 @@ __marimo__/
 
 # just adding the my SmokeTest python file =>
 SmokeTest.py
+
+# adding the database =>
+DataBase/Storage.db
