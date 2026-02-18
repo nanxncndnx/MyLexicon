@@ -211,3 +211,5 @@ SmokeTest.py
 
 # adding the database =>
 DataBase/Storage.db
+Storage.db
+*.db
