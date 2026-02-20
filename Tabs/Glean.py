@@ -39,7 +39,13 @@ def create_glean_page():
 
         if prompt.startswith(".add"):
             promptValue = prompt.replace(".add", "").strip().strip('"')
-            promptMeaning = GrabingTheMeaning(promptValue)
+            promptMeaning = GrabingTheMeaning(promptValue, "add")
+            response = f"{promptMeaning}"
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".meaning"):
+            promptContent = prompt.replace(".meaning", "").strip().strip('"')
+            promptMeaning = GrabingTheMeaning(promptContent, "meaning")
             response = f"{promptMeaning}"
             st.session_state.messages.append({"role": "assistant", "content": response})
 

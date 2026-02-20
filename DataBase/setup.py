@@ -26,14 +26,17 @@ def AddingNewOne(word, definition):
         return f"this is the error we are getting: \n {e}"
 
 
-def GrabingTheMeaning(word):
+def GrabingTheMeaning(word, command):
     conn = sql.connect("Storage.db")
     c = conn.cursor()
     definition = c.execute(f""" SELECT definition from VAULT WHERE word = '{word}'; """).fetchone()
     
-    if definition is None:
+    if definition is None and command == "add":
         meaning = WakeUpModel(word)
         ans = AddingNewOne(word, meaning)
         return ans
+    
+    elif definition is None and command == "meaning":
+        return f"You never searched for '{word}' before. Use .add '{word}' to add it to your vault."
     else:
         return definition[0]
