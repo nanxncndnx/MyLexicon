@@ -37,6 +37,7 @@ def GrabingTheMeaning(word, command):
         return ans
     
     elif definition is None and command == "meaning":
-        return f"You never searched for '{word}' before. Use .add '{word}' to add it to your vault."
+        meaning = WakeUpModel(word)
+        return f"You never searched for '{word}' before. Use .add '{word}' to add it to your vault.\n But the meaning is: {meaning}"
     else:
         return definition[0]
