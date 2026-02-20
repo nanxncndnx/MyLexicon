@@ -1,5 +1,5 @@
 import sqlite3 as sql
-from main import WakeUpModel
+from model_optimizer import WakeUpModel
 
 # Create connections =>
 conn = sql.connect("Storage.db")

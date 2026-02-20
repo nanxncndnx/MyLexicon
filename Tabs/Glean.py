@@ -2,6 +2,7 @@ import streamlit as st
 from .chat_styles import CHAT_STYLES
 
 from DataBase.setup import *
+from model_optimizer import ChangeModelType
 
 def create_glean_page():
     
@@ -36,4 +37,12 @@ def create_glean_page():
             promptMeaning = GrabingTheMeaning(promptValue)
             response = f"{promptMeaning}"
             st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".change_model"):
+            parts = prompt.lower().split()
+            requested = parts[-1]
+            new_model_name = ChangeModelType(requested)
+            response = f"{new_model_name}"
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
         st.rerun()

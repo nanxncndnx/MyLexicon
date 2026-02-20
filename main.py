@@ -2,9 +2,6 @@ import openai
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-import os
-from dotenv import load_dotenv
-
 # importing all the tabs python files =>
 from Tabs import Glean
 
@@ -14,24 +11,11 @@ from header_style import (
     LOGO_HTML,
 )
 
+default_model = "kimi-k2.5"
 
-# Catching the answer from the kimi-k2.5 =>
-def WakeUpModel(word):
-    load_dotenv()
-    API_KEY = os.getenv("API_KEY")
-    
-    client = openai.OpenAI(
-        base_url = "https://integrate.api.nvidia.com/v1",
-        api_key = API_KEY
-    )
-
-    response = client.chat.completions.create(
-        model="moonshotai/kimi-k2.5",
-        messages=[{"role": "user", "content": f"just define the word {word} very friendly and short like a translate in english no more and less information and talk just the meaning"}]
-    )
-
-    res = response.choices[0].message.content
-    return res
+# Initializing the model type =>
+if "model_type" not in st.session_state:
+    st.session_state.model_type = default_model
 
 # Logo of App =>
 st.markdown(LOGO_HTML, unsafe_allow_html=True)

@@ -1,0 +1,18 @@
+{
+  "kimi-k2.5": {
+    "model_id": "moonshotai/kimi-k2.5",
+    "description": "Open-source native multimodal agentic model with vision and language understanding, supporting instant and thinking modes with 256K context."
+  },
+  "qwen": {
+    "model_id": "qwen/qwen3.5-397b-a17b",
+    "description": "Next-gen 400B multimodal MoE model with advanced vision, chat, RAG, and agentic capabilities."
+  },
+  "deepseek-v3.2": {
+    "model_id": "deepseek-ai/deepseek-v3.2",
+    "description": "State-of-the-art 685B reasoning LLM with sparse attention, long context, and integrated agentic tools."
+  },
+  "glm4.7": {
+    "model_id": "z-ai/glm-4.7",
+    "description": "Multilingual agentic coding partner with stronger reasoning, tool use, and UI skills."
+  }
+}
