@@ -1,18 +1,18 @@
 {
   "kimi-k2.5": {
     "model_id": "moonshotai/kimi-k2.5",
-    "description": "Open-source native multimodal agentic model with vision and language understanding, supporting instant and thinking modes with 256K context."
+    "description": "1T multimodal MoE for high-capacity video and image understanding with efficient inference. Kimi K2.5 is an open-source, native multimodal agentic model built through continual pretraining on approximately 15 trillion mixed visual and text tokens atop Kimi-K2-Base. It seamlessly integrates vision and language understanding with advanced agentic capabilities, supporting both instant and thinking modes, as well as conversational and agentic paradigms."
   },
   "qwen": {
     "model_id": "qwen/qwen3.5-397b-a17b",
-    "description": "Next-gen 400B multimodal MoE model with advanced vision, chat, RAG, and agentic capabilities."
+    "description": "Next-gen Qwen 3.5 VLM (400B MoE) brings advanced vision, chat, RAG, and agentic capabilities. Qwen3.5-397B-A17B is a multimodal foundation model featuring a Hybrid Mixture-of-Experts architecture with early fusion vision-language training, designed for state-of-the-art performance across chat, retrieval-augmented generation, vision-language understanding, video understanding, and agentic workflows."
   },
   "deepseek-v3.2": {
     "model_id": "deepseek-ai/deepseek-v3.2",
-    "description": "State-of-the-art 685B reasoning LLM with sparse attention, long context, and integrated agentic tools."
+    "description": "State-of-the-art 685B reasoning LLM with sparse attention, long context, and integrated agentic tools. DeepSeek-V3.2 harmonizes high computational efficiency with superior reasoning and agentic AI performance through DeepSeek Sparse Attention (DSA) and scalable reinforcement learning. It achieves gold-medal performance in the 2025 International Mathematical Olympiad (IMO) and International Olympiad in Informatics (IOI), performing comparably to GPT-5."
   },
   "glm4.7": {
     "model_id": "z-ai/glm-4.7",
-    "description": "Multilingual agentic coding partner with stronger reasoning, tool use, and UI skills."
+    "description": "GLM-4.7 is a large language model developed by Z.ai (formerly THUDM/Zhipu AI) optimized for coding, reasoning, and tool use. It features significant improvements in multilingual agentic coding, terminal-based tasks, UI generation, and complex mathematical reasoning compared to its predecessor GLM-4.6. The model introduces Interleaved Thinking, Preserved Thinking, and Turn-level Thinking capabilities for more stable and controllable complex task execution."
   }
 }

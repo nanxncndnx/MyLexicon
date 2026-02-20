@@ -1,8 +1,13 @@
 import streamlit as st
+import json
+
 from .chat_styles import CHAT_STYLES
 
 from DataBase.setup import *
 from model_optimizer import ChangeModelType
+
+with open("models_info.json", "r") as f:
+    info = json.load(f)
 
 def create_glean_page():
     
@@ -43,6 +48,17 @@ def create_glean_page():
             requested = parts[-1]
             new_model_name = ChangeModelType(requested)
             response = f"{new_model_name}"
+            st.session_state.messages.append({"role": "assistant", "content": response})
+        
+        if prompt.startswith(".info"):
+            parts = prompt.lower().split()
+            promptPayload = info[parts[-1]]["description"]
+            response = f"{promptPayload}"
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".model_options"):
+            options = "\n".join([f"• {key}" for key in info.keys()])
+            response = f"Avaible Models Are =>\n{options}"
             st.session_state.messages.append({"role": "assistant", "content": response})
 
         st.rerun()
