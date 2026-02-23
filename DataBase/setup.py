@@ -1,5 +1,5 @@
 import sqlite3 as sql
-from model_optimizer import WakeUpModel
+from model_optimizer import WakeUpModel, GrabFromInternet
 
 # Create connections =>
 conn = sql.connect("Storage.db")
@@ -26,18 +26,25 @@ def AddingNewOne(word, definition):
         return f"this is the error we are getting: \n {e}"
 
 
-def GrabingTheMeaning(word, command):
+def GrabingTheMeaning(word, command, ai_usage):
     conn = sql.connect("Storage.db")
     c = conn.cursor()
     definition = c.execute(f""" SELECT definition from VAULT WHERE word = '{word}'; """).fetchone()
     
     if definition is None and command == "add":
-        meaning = WakeUpModel(word)
+        if ai_usage == True:
+            meaning = WakeUpModel(word)
+        else:
+            meaning = GrabFromInternet(word)
+        
         ans = AddingNewOne(word, meaning)
         return ans
     
     elif definition is None and command == "meaning":
-        meaning = WakeUpModel(word)
-        return f"You never searched for '{word}' before. Use .add '{word}' to add it to your vault.\n But the meaning is: {meaning}"
+        if ai_usage == True:
+            meaning = WakeUpModel(word)
+        else:
+            meaning = GrabFromInternet(word)
+        return f"You never searched for '{word}' before. Use .add '{word}' to add it to your vault.\n But the meaning is: <span style='color: #FCFC4E;'>{meaning}</span>"
     else:
         return definition[0]

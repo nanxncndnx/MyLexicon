@@ -36,16 +36,49 @@ def create_glean_page():
     # Chat input
     if prompt := st.chat_input("Type a word here..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
+        ai_usage = st.session_state.ai_enabled
 
+        if prompt.startswith(".set_ai"):
+            st.session_state.ai_enabled = True
+            response = f"Ai Model enabled. Currently using => {st.session_state.model_type}"
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".unset_ai"):
+            st.session_state.ai_enabled = False
+            response = "Ai Model disabled. using dictionary API for faster  lookups."
+            st.session_state.messages.append({"role": "assistant", "content": response})
+        
         if prompt.startswith(".add"):
-            promptValue = prompt.replace(".add", "").strip().strip('"')
-            promptMeaning = GrabingTheMeaning(promptValue, "add")
+            use_internet = prompt.endswith('"use_internet"')
+            use_ai = prompt.endswith('"use_ai"')
+
+            promptValue = prompt.replace(".add", "").replace('"use_internet"', "").replace('"use_ai"', "").strip().strip('"')
+
+            if use_internet:
+                ai_usage = False
+            elif use_ai:
+                ai_usage = True
+            else:
+                ai_usage = st.session_state.ai_enabled
+
+            promptMeaning = GrabingTheMeaning(promptValue, "add", ai_usage)
             response = f"{promptMeaning}"
             st.session_state.messages.append({"role": "assistant", "content": response})
 
         if prompt.startswith(".meaning"):
-            promptContent = prompt.replace(".meaning", "").strip().strip('"')
-            promptMeaning = GrabingTheMeaning(promptContent, "meaning")
+            use_internet = prompt.endswith('"use_internet"')
+            use_ai = prompt.endswith('"use_ai"')
+
+            promptContent = prompt.replace(".meaning", "").replace('"use_internet"', "").replace('"use_ai"', "").strip().strip('"')
+            
+            if use_internet:
+                ai_usage = False
+            elif use_ai:
+                ai_usage = True
+            else:
+                ai_usage = st.session_state.ai_enabled
+
+            promptMeaning = GrabingTheMeaning(promptContent, "meaning", ai_usage)
             response = f"{promptMeaning}"
             st.session_state.messages.append({"role": "assistant", "content": response})
 
@@ -66,5 +99,13 @@ def create_glean_page():
             options = "\n".join([f"• {key}" for key in info.keys()])
             response = f"Avaible Models Are =>\n{options}"
             st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".status"):
+            response = f""" Model Usage => {st.session_state.ai_enabled}\n\nCurrent Model => {st.session_state.model_type} """
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".clear"):
+            st.session_state.messages = []
+            st.rerun()
 
         st.rerun()

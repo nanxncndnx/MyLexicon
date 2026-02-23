@@ -17,6 +17,9 @@ default_model = "kimi-k2.5"
 if "model_type" not in st.session_state:
     st.session_state.model_type = default_model
 
+if "ai_enabled" not in st.session_state:
+    st.session_state.ai_enabled = False
+
 # Logo of App =>
 st.markdown(LOGO_HTML, unsafe_allow_html=True)
 
