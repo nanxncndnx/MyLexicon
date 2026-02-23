@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+import requests
 
 import json
 import os
@@ -38,3 +39,11 @@ def WakeUpModel(word):
 
     res = response.choices[0].message.content
     return res
+
+def GrabFromInternet(word):
+    response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}")
+    if response.status_code == 200:
+        data = response.json()
+        return data[0]["meanings"][0]["definitions"][0]["definition"]
+    else:
+        return None
