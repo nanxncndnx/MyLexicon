@@ -103,6 +103,20 @@ def create_glean_page():
         if prompt.startswith(".status"):
             response = f""" Model Usage => {st.session_state.ai_enabled}\n\nCurrent Model => {st.session_state.model_type} """
             st.session_state.messages.append({"role": "assistant", "content": response})
+        
+        if prompt.startswith(".show"):
+            parts = prompt.replace(".show", "").strip().split()
+    
+            words = "words" in parts
+            definitions = "definitions" in parts
+    
+            response = Listing(words, definitions)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+        if prompt.startswith(".del"):
+            word = prompt.replace(".del", "").strip().strip('"')
+            response = DeletingWord(word)
+            st.session_state.messages.append({"role": "assistant", "content": response})
 
         if prompt.startswith(".clear"):
             st.session_state.messages = []

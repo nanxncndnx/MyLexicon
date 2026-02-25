@@ -25,6 +25,39 @@ def AddingNewOne(word, definition):
     except Exception as e:
         return f"this is the error we are getting: \n {e}"
 
+# i need to optimize this part later !
+def Listing(words, definitions):
+    conn = sql.connect("Storage.db")
+    c = conn.cursor()
+    
+    if words and definitions:
+        result = c.execute(""" SELECT word, definition FROM VAULT """).fetchall()
+        return "\n\n".join([f"**{row[0]}** — {row[1]}" for row in result])
+    
+    elif words and not definitions:
+        result = c.execute(""" SELECT word FROM VAULT """).fetchall()
+        return "\n\n".join([f"• {row[0]}" for row in result])
+    
+    elif not words and definitions:
+        result = c.execute(""" SELECT definition FROM VAULT """).fetchall()
+        return "\n\n".join([f"• {row[0]}" for row in result])
+    
+    else:
+        total = c.execute(""" SELECT COUNT(*) FROM VAULT """).fetchall()[0]
+        return f"Vault Stats\n\nTotal words: <b> {total[0]} </b>"
+
+def DeletingWord(word):
+    conn = sql.connect("Storage.db")
+    c = conn.cursor()
+    
+    exists = c.execute(f"SELECT word FROM VAULT WHERE word = '{word}'").fetchone()
+    
+    if exists:
+        c.execute(f"DELETE FROM VAULT WHERE word = '{word}'")
+        conn.commit()
+        return f"**{word}** has been deleted from your vault."
+    else:
+        return f"**{word}** was not found in your vault."
 
 def GrabingTheMeaning(word, command, ai_usage):
     conn = sql.connect("Storage.db")
